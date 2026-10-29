@@ -21,7 +21,7 @@ Relative paths are relative to this data folder.
 ## Outreach and salary
 - **Reply language/tone:** the recruiter's language; friendly and professional
 - **Current employer (conflict check):** Acme Retail, which recruiters may describe as "a multinational retail company in Guadalajara"
-- **Salary anchor:** $95k USD gross per year
+- **Salary anchor:** $95k USD per year, total compensation
 - **Reference points (researched 2026-01-10; re-verify):**
   - Remote for US companies from Mexico: ~$80k–120k USD/yr
   - Local senior salaries: ~$45k–75k USD/yr
@@ -32,7 +32,8 @@ Relative paths are relative to this data folder.
   3. Funded LATAM fintech and tech
 
 ## Application preferences
-- **Fit check first:** recommend skipping a posting when its core stack doesn't match, log it as "Skipped", and suggest the project in `cv-database/Upskilling Projects.md` that closes the gap.
+- **Fit check first:** recommend skipping a posting when its core stack or seniority doesn't match, log it as "Skipped", and suggest the project in `cv-database/Upskilling Projects.md` that closes the gap.
+- **Pay check:** flag postings likely to pay well below the salary anchor (total compensation); the user decides.
 
 ## Standing facts (confirmed; don't re-ask)
 - **Acme Retail title:** official title is **Senior Data Engineer**.

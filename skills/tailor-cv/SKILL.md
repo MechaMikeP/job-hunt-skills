@@ -20,13 +20,20 @@ description: Build a CV/resume tailored to a specific job posting or company fro
    - **Ask about scope, not just yes/no.** "Built it", "operate or support it", "migrated it" and "familiar, someone else wrote it" lead to different bullets. Familiar-only goes in the skills line as "familiar with X", never in a bullet as hands-on work.
    - **A question about a term means the claim isn't confirmed.** If the user later asks what a selected term means (e.g., "semantic layer", "schema-on-read", "dimensional modeling"), explain it, re-check the claim against what they actually did, and fix the CV.
    - **The user's newest answer wins**, even over a database note marked ✗ or "not done". Correct the database (with `cv-database-update`) instead of arguing from the old note.
-4. **Fit check: recommend skipping when the core doesn't match.** Before writing, decide whether the posting is worth a CV. Recommend skipping it when the role's main stack (title, core requirements, day-to-day duties) is mostly ✗, or when the user would fail the screening questions truthfully; matching only nice-to-haves isn't enough. Say it plainly, with the reasons. If the user agrees: log it as "Skipped" with the reason in the Applications log, add its gaps to `Upskilling Projects.md`, and recommend the project that would close them. Mention cheaper alternatives (a short recruiter message) only as an option. Also follow any fit preferences in `config.md`.
+4. **Fit check: recommend skipping when the core doesn't match.** Before writing, decide whether the posting is worth a CV, and give a one-line verdict (apply / skip) with the reasons. Check three things:
+   - **Stack:** recommend skipping when the role's main stack (title, core requirements, day-to-day duties) is mostly ✗, or when the user would fail the screening questions truthfully; matching only nice-to-haves isn't enough.
+   - **Seniority:** a lead/staff title, "proven tech lead experience", or years of experience far above the user's (e.g., 10+ asked vs ~2 in the field) can sink a posting whose stack matches perfectly. Count years in the field the posting names (data engineering), not total engineering years.
+   - **Pay:** compare the posting with the salary anchor and company tiers in `config.md` (and any published range). If it's likely well below the anchor (e.g., local consultancies, local payroll at local rates), flag it in the verdict. This is a flag, not a skip: the user decides.
+
+   If the verdict is skip and the user agrees: log it as "Skipped" with the reason in the Applications log, add its gaps to `Upskilling Projects.md`, and recommend the project that would close them. Suggest better-fitting alternatives at the same company (e.g., a non-lead role) and cheaper routes (a short recruiter message) only as options. Also follow any fit preferences in `config.md`.
 5. **Write `content.json`** in a scratch directory. Start from the starting point named in `config.md` (usually the newest `content.json` in the CV output folder), or from `${CLAUDE_PLUGIN_ROOT}/skills/tailor-cv/assets/content.example.json`. Rules:
    - **Header:** `name` and `contact` (`line`, `linkedin`, `linkedinUrl`) come from `Profile.md`. The build fails without them.
    - **Headline:** mirror the job title from the posting, then add 3–4 of the posting's key terms. It must fit on one line; check the preview.
    - **Job titles:** follow the standing facts in `config.md` (e.g., official title plus scope in parentheses).
    - **Facts and metrics:** use only what the database contains, and never invent numbers. For items newly confirmed without a metric, write a bullet with no number. Use each metric in only one bullet; if two bullets describe the same work, put the metric where it reads strongest for this posting.
-   - **Role verbs match the user's real scope:** "built", "supported", "served as the escalation point", "contributed to". Don't upgrade "supported" to "built" or "managed".
+   - **Role verbs match the user's real scope:** "built", "supported", "served as the escalation point", "contributed to". Don't upgrade "supported" to "built" or "managed", and don't give the user a title they don't hold (e.g., "technical lead") in the summary.
+   - **Tense:** past tense for anything that has ended (a team, project or initiative), even inside the current job.
+   - **Map the user's own terms to the posting's.** When the user describes their work in their own words (e.g., "serving layer", "pillars"), check whether it matches the posting's term (e.g., "outbound feeds", "data marts") before using it. Explain the difference if it doesn't, and use wording that's true for both.
    - **Keywords:** spell the posting's terms exactly as it does (e.g., "Databricks Jobs", "MLflow", "Unity Catalog"), and make each important term appear in the summary, skills, and at least one bullet.
    - **Length:** up to about 9 bullets for the current role and 4 for the previous one; compress older roles to 1–3. Aim for 2 pages.
    - **Language:** English unless the posting is in another language. Keep the `languages` line for remote or international roles.
@@ -41,6 +48,8 @@ description: Build a CV/resume tailored to a specific job posting or company fro
    - Read the `page-N.png` previews. Check for layout breaks and a lonely last page.
    - Read `raw.txt`, the text in the order an ATS sees it. Bullets must stay with their text, and company and dates must sit on one line.
    - The script must print `banned: none found`. Pages should be 2 or fewer.
+   - **Claim review:** re-read the summary and every bullet against the database. Each tool, number, scope and source must be recorded *for that specific work* (e.g., a storage service confirmed in general isn't confirmed as a dashboard's source). Fix anything stretched, then rebuild.
+   - **Corrections ripple:** if the user corrects a fact during the session (a role ended, a skill is familiar only), update every earlier CV that uses it, still in progress or not yet submitted: edit its `content.json`, add the old wording to `banned`, and rebuild.
 8. **Record in the database:**
    - Add newly confirmed facts using the `cv-database-update` skill.
    - Add a row to the `CV Version History.md` table, with no blank line before it so the table doesn't break.
