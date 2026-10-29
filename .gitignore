@@ -1,0 +1,18 @@
+# Allowlist: only the plugin itself is tracked. Personal data belongs in your own
+# data folder outside this repo; if a copy ever lands here, it stays untracked.
+/*
+!/.gitignore
+!/README.md
+!/LICENSE
+!/.claude-plugin/
+!/skills/
+!/examples/
+!/.claude/
+/.claude/*
+!/.claude/CLAUDE.md
+
+# Office lock files and OS clutter, even inside allowed folders
+~$*
+Thumbs.db
+desktop.ini
+.DS_Store

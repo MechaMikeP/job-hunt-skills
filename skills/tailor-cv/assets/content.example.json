@@ -1,0 +1,49 @@
+{
+  "name": "Alex Rivera",
+  "contact": {
+    "line": "Guadalajara, Mexico  |  alex.rivera@example.com  |  +52 33 0000 0000",
+    "linkedin": "alex-rivera-example",
+    "linkedinUrl": "https://www.linkedin.com/in/alex-rivera-example/"
+  },
+  "docTitle": "Alex Rivera - Senior Data Engineer",
+  "footer": "Senior Data Engineer",
+  "banned": ["dbt", "Snowflake", "Data Analyst"],
+  "headline": "Senior Data Engineer | Databricks | PySpark | Delta Lake | Airflow",
+  "summary": "Senior data engineer with 7+ years of experience building batch and streaming pipelines on cloud data platforms. At Acme Retail, I own the PySpark pipelines behind the company's sales and inventory lakehouse on Azure Databricks, serving ~40 analysts across 6 teams. Cut pipeline runtime by 35% through join and partitioning optimization, and moved 50+ legacy jobs to Apache Airflow. Previously built data integrations and test automation at Globex Logistics.",
+  "skills": [
+    ["Data Platform", "Azure Databricks, Delta Lake, Unity Catalog, Apache Spark (PySpark), Structured Streaming"],
+    ["Orchestration & CI/CD", "Apache Airflow, Databricks Jobs, GitHub Actions, Docker"],
+    ["Languages", "Python (pandas), SQL, Bash"],
+    ["Data Quality", "Great Expectations, schema validation, data contracts"]
+  ],
+  "jobs": [
+    {
+      "title": "Senior Data Engineer",
+      "company": "Acme Retail",
+      "where": "Guadalajara, Mexico | Mar 2022 - Present",
+      "intro": "Data platform team for a multi-country retail chain.",
+      "numId": "19",
+      "bullets": [
+        "Reduced nightly pipeline runtime by 35% by tuning PySpark joins, partitioning, and caching across the sales and inventory lakehouse.",
+        "Migrated 50+ legacy cron jobs to Apache Airflow DAGs with alerting and retries, improving failure detection.",
+        "Introduced data-quality checks in CI with Great Expectations, catching schema breaks before production."
+      ]
+    },
+    {
+      "title": "Data Engineer",
+      "company": "Globex Logistics",
+      "where": "Monterrey, Mexico | Jan 2019 - Feb 2022",
+      "intro": "",
+      "numId": "21",
+      "bullets": [
+        "Built REST-to-warehouse integrations in Python for 12 carrier APIs, replacing manual CSV uploads.",
+        "Raised test coverage of the ingestion library from 20% to 75%."
+      ]
+    }
+  ],
+  "education": [
+    ["B.S. in Computer Engineering", " - Universidad Example  |  2018"]
+  ],
+  "certs": "Databricks Certified Data Engineer Associate  |  Azure Data Fundamentals",
+  "languages": "Spanish (native)  |  English (full professional proficiency)"
+}

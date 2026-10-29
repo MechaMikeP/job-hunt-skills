@@ -1,0 +1,19 @@
+{
+  "name": "job-hunt-skills",
+  "displayName": "Job Hunt Skills",
+  "version": "0.1.0",
+  "description": "Run a job search from a personal CV skills database: tailored ATS-safe CVs (PDF + DOCX), database upkeep, LinkedIn/ATS search filters, and recruiter replies.",
+  "author": { "name": "Miguel Pineda", "url": "https://github.com/MechaMikeP" },
+  "homepage": "https://github.com/MechaMikeP/job-hunt-skills",
+  "repository": "https://github.com/MechaMikeP/job-hunt-skills",
+  "license": "MIT",
+  "keywords": ["job-search", "resume", "cv", "ats", "recruiting", "career"],
+  "userConfig": {
+    "data_dir": {
+      "type": "directory",
+      "title": "Job hunt data folder",
+      "description": "Folder with your personal data: config.md, cv-database/, cvs/ (generated CVs), job_descriptions/ and your search filters file. Start from the sample in this plugin's examples/data/. Keep it outside the plugin, e.g. in OneDrive or an Obsidian vault. Enter the path without quotes, even if it has spaces.",
+      "required": true
+    }
+  }
+}
