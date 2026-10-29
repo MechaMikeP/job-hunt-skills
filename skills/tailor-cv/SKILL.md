@@ -15,36 +15,43 @@ description: Build a CV/resume tailored to a specific job posting or company fro
 ## Workflow
 
 1. **Get the real job description.** If you have a link, WebFetch it and save a copy in `job_descriptions/`. If you only have a company name, search its postings and ask which one before writing. A generic role at the same company can be very different from the one the user means.
-2. **Map the gaps.** Make a quick table that lists each must-have and nice-to-have, with its evidence in the Skills Inventory: ★★★, ★★, ★, ✗ (not done), or unknown.
+2. **Map the gaps.** Make a quick table that lists each must-have and nice-to-have, with its evidence in the Skills Inventory: ★★★, ★★, ★, ✗ (not done), or unknown. Include the poster's screening questions (e.g., "Requirements added by the job poster: 5+ years of X"); they often reject applicants automatically.
 3. **Confirm the unknowns before writing.** Use AskUserQuestion with `multiSelect`. Each option must explain in plain words what the item means, because people pick jargon items by mistake. Ask them to select only what they have done hands-on. Never claim ✗ items. If they select something new, read it back in your final message so they can correct it.
-4. **Write `content.json`** in a scratch directory. Start from the starting point named in `config.md` (usually the newest `content.json` in the CV output folder), or from `${CLAUDE_PLUGIN_ROOT}/skills/tailor-cv/assets/content.example.json`. Rules:
+   - **Ask about scope, not just yes/no.** "Built it", "operate or support it", "migrated it" and "familiar, someone else wrote it" lead to different bullets. Familiar-only goes in the skills line as "familiar with X", never in a bullet as hands-on work.
+   - **A question about a term means the claim isn't confirmed.** If the user later asks what a selected term means (e.g., "semantic layer", "schema-on-read", "dimensional modeling"), explain it, re-check the claim against what they actually did, and fix the CV.
+   - **The user's newest answer wins**, even over a database note marked ✗ or "not done". Correct the database (with `cv-database-update`) instead of arguing from the old note.
+4. **Fit check: recommend skipping when the core doesn't match.** Before writing, decide whether the posting is worth a CV. Recommend skipping it when the role's main stack (title, core requirements, day-to-day duties) is mostly ✗, or when the user would fail the screening questions truthfully; matching only nice-to-haves isn't enough. Say it plainly, with the reasons. If the user agrees: log it as "Skipped" with the reason in the Applications log, add its gaps to `Upskilling Projects.md`, and recommend the project that would close them. Mention cheaper alternatives (a short recruiter message) only as an option. Also follow any fit preferences in `config.md`.
+5. **Write `content.json`** in a scratch directory. Start from the starting point named in `config.md` (usually the newest `content.json` in the CV output folder), or from `${CLAUDE_PLUGIN_ROOT}/skills/tailor-cv/assets/content.example.json`. Rules:
    - **Header:** `name` and `contact` (`line`, `linkedin`, `linkedinUrl`) come from `Profile.md`. The build fails without them.
-   - **Headline:** mirror the job title from the posting, then add 3–4 of the posting's key terms.
+   - **Headline:** mirror the job title from the posting, then add 3–4 of the posting's key terms. It must fit on one line; check the preview.
    - **Job titles:** follow the standing facts in `config.md` (e.g., official title plus scope in parentheses).
-   - **Facts and metrics:** use only what the database contains, and never invent numbers. For items newly confirmed without a metric, write a bullet with no number.
+   - **Facts and metrics:** use only what the database contains, and never invent numbers. For items newly confirmed without a metric, write a bullet with no number. Use each metric in only one bullet; if two bullets describe the same work, put the metric where it reads strongest for this posting.
+   - **Role verbs match the user's real scope:** "built", "supported", "served as the escalation point", "contributed to". Don't upgrade "supported" to "built" or "managed".
    - **Keywords:** spell the posting's terms exactly as it does (e.g., "Databricks Jobs", "MLflow", "Unity Catalog"), and make each important term appear in the summary, skills, and at least one bullet.
    - **Length:** up to about 9 bullets for the current role and 4 for the previous one; compress older roles to 1–3. Aim for 2 pages.
    - **Language:** English unless the posting is in another language. Keep the `languages` line for remote or international roles.
-   - **`banned`:** list every ✗ skill plus the previous CV's footer or role strings.
+   - **`banned`:** list every ✗ skill plus the previous CV's footer or role strings. The check matches whole words, ignoring case, so short terms like "ORC" don't flag "orchestration".
    - **`footer` and `docTitle`:** set both to the target role.
-5. **Build** (PowerShell):
+6. **Build** (PowerShell):
    ```powershell
    & "${CLAUDE_PLUGIN_ROOT}/skills/tailor-cv/scripts/build_cv.ps1" -Content <content.json> -OutDir "<output folder>\<folder>" -BaseName "<CV file name>" -WorkDir <scratch>\cvwork
    ```
    Pass `-OutDir` as an absolute path (data folder + CV output folder + CV folder), since the shell's working directory may be elsewhere. Then copy `content.json` into the output folder so the CV can be rebuilt later.
-6. **Verify.** Don't skip any of these:
+7. **Verify.** Don't skip any of these:
    - Read the `page-N.png` previews. Check for layout breaks and a lonely last page.
    - Read `raw.txt`, the text in the order an ATS sees it. Bullets must stay with their text, and company and dates must sit on one line.
    - The script must print `banned: none found`. Pages should be 2 or fewer.
-7. **Record in the database:**
+8. **Record in the database:**
    - Add newly confirmed facts using the `cv-database-update` skill.
    - Add a row to the `CV Version History.md` table, with no blank line before it so the table doesn't break.
    - Add a row to the Applications log in `CV Database.md`.
-8. **Report back:**
+   - Add the posting's unmet requirements to the gap tracker in `Upskilling Projects.md`.
+9. **Report back:**
    - the file paths
    - what you targeted
-   - what you left out on purpose (gaps, plus how to close them, e.g., a repo in `GitHub Portfolio Plan.md`)
+   - what you left out on purpose, and the project in `Upskilling Projects.md` that would close each gap
    - any metrics that would strengthen the bullets
+   - interview prep for claims at the edge of the user's experience (e.g., how to describe a star schema they built, or what to say about a tool they only know)
 
 ## Format decision
 - **Submit the PDF.** It is text-based, exported by Word, with fonts embedded, and Lever/Greenhouse/Ashby read it well. Keep the .docx as the editable source and as a fallback for forms that ask for Word.

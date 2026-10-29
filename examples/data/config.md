@@ -31,6 +31,9 @@ Relative paths are relative to this data folder.
   2. US talent marketplaces
   3. Funded LATAM fintech and tech
 
+## Application preferences
+- **Fit check first:** recommend skipping a posting when its core stack doesn't match, log it as "Skipped", and suggest the project in `cv-database/Upskilling Projects.md` that closes the gap.
+
 ## Standing facts (confirmed; don't re-ask)
 - **Acme Retail title:** official title is **Senior Data Engineer**.
 - **Runtime cut:** the pipeline runtime reduction is **35%** (an older CV said 40%).

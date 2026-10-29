@@ -16,6 +16,7 @@ Take it from `cv-database/Target Roles.md`, where archetypes are ordered by fit.
 - **Syntax:** `AND` / `OR` / `NOT` in UPPERCASE, straight quotes, parentheses for grouping. Exclude the seniority terms from `config.md` (e.g., `NOT (intern OR internship OR junior)`).
 - **Anchor on the user's stack:** e.g., `AND (Databricks OR Spark …)`, using the ★★★ skills from `Skills Inventory.md`. Titles alone pull in noise from other stacks.
 - **Watch broad titles** like "machine learning engineer": they bring in jobs centered on the user's weakest areas. Only use them anchored to the context they fit (platform, MLOps…).
+- **Exclude stacks the user has ruled out.** Read the ✗ rows in `Skills Inventory.md` and the "Skipped" rows in the Applications log (`CV Database.md`). When a ✗ skill is the *core* of the postings it appears in (in the title, e.g., "Scala / Spark"), add it to the `NOT (...)` list. Don't exclude ✗ skills that are usually just one requirement among many (e.g., dbt in a Spark role); those postings can still be a good fit.
 - **Prefer a few precise filters.** Propose the minimum and explain the trade-off (fewer results but a better fit) instead of piling on variants.
 - **One alert per filter** with the alert settings and locations from `config.md`.
 - **Mirror changes in the Google site: queries:**
